@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Batista Nacional Diamantino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#006666',
+                        secondary: '#FFD700',
+                        accent: '#008080',
+                        light: '#F8F9FC',
+                        dark: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .video-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        .header-banner {
+            background: url('banner-ibn.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 160px;
+        }
+        @media (max-width: 768px) {
+            .header-banner { height: 120px; }
+        }
+    </style>
+</head>
+<body class="bg-light text-gray-800 font-sans antialiased">
+
+    <!-- 🖼️ BANNER NO CABEÇALHO -->
+    <div class="header-banner w-full"></div>
+
+    <!-- 🧭 MENU DE NAVEGAÇÃO -->
+    <header class="bg-primary text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#inicio" class="flex items-center gap-2">
+                <span class="text-2xl font-bold text-secondary">IBN</span>
+                <span class="hidden sm:inline text-sm">Família para pertencer</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#inicio" class="hover:text-secondary">Início</a>
+                <a href="#videos" class="hover:text-secondary">Vídeos</a>
+                <a href="#eventos" class="hover:text-secondary">Eventos</a>
+                <a href="#doacao" class="hover:text-secondary">Doação</a>
+                <a href="#contato" class="hover:text-secondary">Contato</a>
+            </nav>
+            <button class="md:hidden text-2xl" id="btnMenu">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <div id="menuMobile" class="md:hidden hidden bg-accent px-4 pb-4">
+            <nav class="flex flex-col gap-3">
+                <a href="#inicio" class="py-2">Início</a>
+                <a href="#videos" class="py-2">Vídeos</a>
+                <a href="#eventos" class="py-2">Eventos</a>
+                <a href="#doacao" class="py-2">Doação</a>
+                <a href="#contato" class="py-2">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 🎯 SEÇÃO VÍDEOS DO YOUTUBE (ordenados por data) -->
+        <section id="videos" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">Últimos Vídeos</h2>
+                <p class="text-center text-gray-600 mb-10">Ordenados do mais recente ao mais antigo</p>
+                <div id="lista-videos" class="grid md:grid-cols-3 gap-6">
+                    <!-- Vídeos vão aparecer AQUI carregados automaticamente -->
+                    <div class="col-span-full text-center py-10">
+                        <i class="fa fa-spinner fa-spin text-3xl text-primary"></i>
+                        <p class="mt-2 text-gray-600">Carregando vídeos...</p>
+                    </div>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="https://youtube.com/@ibndiamantino/videos" target="_blank" 
+                       class="inline-block bg-primary text-white px-6 py-3 rounded-md font-bold hover:bg-accent">
+                        <i class="fa fa-youtube-play mr-2"></i> Ver todos os vídeos no YouTube
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 📅 PRÓXIMOS EVENTOS -->
+        <section id="eventos" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-10 text-primary">Programação Semanal</h2>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <div class="border-l-4 border-secondary pl-6 py-3 bg-white rounded-r-lg">
+                        <h3 class="font-bold text-lg text-primary">Terça-feira</h3>
+                        <p>Células nas casas — 20:00</p>
+                    </div>
+                    <div class="border-l-4 border-secondary pl-6 py-3 bg-white rounded-r-lg">
+                        <h3 class="font-bold text-lg text-primary">Quinta-feira</h3>
+                        <p>Culto da Fé — 19:30</p>
+                    </div>
+                    <div class="border-l-4 border-secondary pl-6 py-3 bg-white rounded-r-lg">
+                        <h3 class="font-bold text-lg text-primary">Sábado</h3>
+                        <p>Célula de Adolescentes — 18:00 | Célula de Jovens — 20:00</p>
+                    </div>
+                    <div class="border-l-4 border-secondary pl-6 py-3 bg-white rounded-r-lg">
+                        <h3 class="font-bold text-lg text-primary">Domingo</h3>
+                        <p>Culto de Celebração — 19:00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 💝 DOAÇÃO / PIX -->
+        <section id="doacao" class="py-16 bg-white">
+            <div class="container mx-auto px-4 max-w-2xl text-center">
+                <h2 class="text-3xl font-bold mb-6 text-primary">Dízimos e Ofertas</h2>
+                <p class="text-gray-600 mb-6">"Deus ama ao que dá com alegria." — 2 Coríntios 9:7</p>
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Chave Pix</h3>
+                    <p class="text-lg font-mono bg-white p-3 rounded border mb-4">ibndiamantino77@gmail.com</p>
+                    <button onclick="copiarPix()" class="bg-primary text-white px-6 py-2 rounded-md font-bold hover:bg-accent">
+                        <i class="fa fa-copy mr-2"></i> Copiar Chave Pix
+                    </button>
+                    <p id="msgPix" class="mt-3 text-green-600 font-bold hidden">✅ Copiado!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 📍 CONTATO -->
+        <section id="contato" class="py-16 bg-primary text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-6">Contato e Localização</h2>
+                <p class="text-lg mb-2"><strong>Igreja Batista Nacional Diamantino</strong></p>
+                <p class="mb-4">Av. Ministro Gilmar Ferreira Mendes, S/N — ao lado do Sicredi<br>Diamantino — MT</p>
+                <p class="mb-4"><i class="fa fa-whatsapp"></i> (65) 9 9629-2021</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Ministro+Gilmar+Ferreira+Mendes,Diamantino-MT" target="_blank" 
+                   class="inline-block bg-secondary text-primary px-6 py-2 rounded-md font-bold hover:bg-yellow-400">
+                    <i class="fa fa-map-marker mr-2"></i> Como Chegar
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-8 text-center">
+        <p class="text-xl font-bold text-secondary mb-2">Igreja Batista Nacional Diamantino</p>
+        <p class="text-sm text-gray-400">© 2026 — "Eu e a minha Casa serviremos ao Senhor." — Josué 24:15</p>
+    </footer>
+
+    <script>
+        // ========== CONFIGURAÇÕES ==========
+        const API_KEY = "AIzaSyAYZpzdj26wl8lob7ZX3VBxilRyCTpZ3x4";
+        const CANAL_ID = "UC9sZ0k4tI8zF4yWX7QrX9Zg"; // ← Vou te ajudar a confirmar esse ID abaixo
+        const QTD_VIDEOS = 6;
+
+        // ========== MENU MOBILE ==========
+        document.getElementById('btnMenu').addEventListener('click', () => {
+            document.getElementById('menuMobile').classList.toggle('hidden');
+        });
+
+        // ========== CARREGAR VÍDEOS DO YOUTUBE ==========
+        async function carregarVideos() {
+            try {
+                // 1. Buscar ID do canal pelo nome @ibndiamantino
+                const canalUrl = `https://www.googleapis.com/youtube/v3/channels?part=id,snippet&forUsername=ibndiamantino&key=${API_KEY}`;
+                const canalRes = await fetch(canalUrl);
+                const canalData = await canalRes.json();
+
+                if (!canalData.items || canalData.items.length === 0) {
+                    // Fallback: buscar por pesquisa
+                    const buscaUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=ibndiamantino&type=channel&key=${API_KEY}`;
+                    const buscaRes = await fetch(buscaUrl);
+                    const buscaData = await buscaRes.json();
+                    if (!buscaData.items || buscaData.items.length === 0) throw "Canal não encontrado";
+                    var idCanal = buscaData.items[0].id.channelId;
+                } else {
+                    var idCanal = canalData.items[0].id;
+                }
+
+                // 2. Buscar vídeos ordenados por data (mais novo primeiro)
+                const videosUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${idCanal}&maxResults=${QTD_VIDEOS}&order=date&type=video&key=${API_KEY}`;
+                const videosRes = await fetch(videosUrl);
+                const videosData = await videosRes.json();
+
+                // 3. Exibir na tela
+                const container = document.getElementById('lista-videos');
+                container.innerHTML = "";
+
+                videosData.items.forEach(video => {
+                    const titulo = video.snippet.title;
+                    const data = new Date(video.snippet.publishedAt).toLocaleDateString('pt-BR');
+                    const capa = video.snippet.thumbnails.medium.url;
+                    const idVideo = video.id.videoId;
+                    const link = `https://www.youtube.com/watch?v=${idVideo}`;
+
+                    container.innerHTML += `
+                        <a href="${link}" target="_blank" class="video-card bg-white rounded-xl shadow-md overflow-hidden block">
+                            <img src="${capa}" alt="${titulo}" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg text-primary line-clamp-2">${titulo}</h3>
+                                <p class="text-sm text-gray-500 mt-2"><i class="fa fa-calendar"></i> ${data}</p>
+                            </div>
+                        </a>
+                    `;
+                });
+
+            } catch (erro) {
+                console.error("Erro:", erro);
+                document.getElementById('lista-videos').innerHTML = `
+                    <div class="col-span-full text-center py-6 text-gray-600">
+                        <p>⚠️ Não foi possível carregar os vídeos agora.</p>
+                        <a href="https://youtube.com/@ibndiamantino/videos" target="_blank" 
+                           class="text-primary font-bold underline">Clique aqui para ver no YouTube →</a>
+                    </div>
+                `;
+            }
+        }
+
+        // ========== COPIAR PIX ==========
+        function copiarPix() {
+            navigator.clipboard.writeText("ibndiamantino77@gmail.com");
+            document.getElementById('msgPix').classList.remove('hidden');
+            setTimeout(() => document.getElementById('msgPix').classList.add('hidden'), 3000);
+        }
+
+        // INICIAR TUDO
+        window.onload = carregarVideos;
+    </script>
+</body>
+</html>
