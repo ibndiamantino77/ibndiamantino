@@ -6,6 +6,11 @@
     <title>Igreja Batista Nacional Diamantino</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Calendário -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -24,7 +29,6 @@
     <style>
         html { scroll-behavior: smooth; }
         .video-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
-        /* 🖼️ Cabeçalho com imagem do Ano da Família */
         .header-banner {
             background: url('banner-ibn.jpg');
             background-size: cover;
@@ -35,19 +39,22 @@
         @media (max-width: 768px) {
             .header-banner { height: 120px; }
         }
-        /* Banner principal com imagem de fundo */
         .hero-banner {
-            background: linear-gradient(rgba(10, 26, 63, 0.75), rgba(10, 26, 63, 0.65)), 
-                        url('https://ibndiamantino.com.br/hero-bg.jpg');
+            background: linear-gradient(rgba(10, 26, 63, 0.75), rgba(10, 26, 63, 0.65));
             background-size: cover;
             background-position: center;
-            min-height: 70vh;
+            min-height: 60vh;
+        }
+        /* Estilo do calendário */
+        .flatpickr-calendar {
+            width: 100% !important;
+            max-width: 400px;
         }
     </style>
 </head>
 <body class="bg-light text-gray-800 font-sans antialiased">
 
-    <!-- 🖼️ CABEÇALHO COM IMAGEM DO ANO DA FAMÍLIA -->
+    <!-- 🖼️ CABEÇALHO COM IMAGEM -->
     <div class="header-banner w-full"></div>
 
     <!-- 🧭 MENU DE NAVEGAÇÃO -->
@@ -59,264 +66,255 @@
             </a>
             <nav class="hidden md:flex items-center gap-6">
                 <a href="#inicio" class="border-b-2 border-secondary pb-1">Início</a>
-                <a href="#igreja" class="hover:text-secondary transition-colors">Igreja</a>
-                <a href="#eventos" class="hover:text-secondary transition-colors">Eventos</a>
-                <a href="#aovivo" class="hover:text-secondary transition-colors flex items-center gap-1">
-                    <i class="fa fa-play-circle text-sm"></i> Ao Vivo
+                <a href="#igreja" class="hover:text-secondary">Igreja</a>
+                <a href="#eventos" class="hover:text-secondary">Eventos</a>
+                <a href="#aovivo" class="hover:text-secondary flex items-center gap-1">
+                    <i class="fa fa-play-circle text-sm"></i> Transmissões
                 </a>
-                <a href="#oracao" class="hover:text-secondary transition-colors flex items-center gap-1">
+                <a href="#oracao" class="hover:text-secondary flex items-center gap-1">
                     <i class="fa fa-heart text-sm"></i> Oração
                 </a>
-                <a href="#doacao" class="hover:text-secondary transition-colors">Doação</a>
-                <a href="#mais" class="hover:text-secondary transition-colors">Mais</a>
+                <a href="#doacao" class="hover:text-secondary">Doação</a>
             </nav>
-            <div class="hidden md:flex items-center gap-3">
-                <a href="#membro" class="bg-secondary text-primary px-4 py-2 rounded-md font-bold hover:bg-yellow-400 transition-colors">Seja Membro</a>
-                <a href="#entrar" class="border border-white px-4 py-2 rounded-md hover:bg-white/10 transition-colors">Entrar</a>
-            </div>
             <button class="md:hidden text-2xl" id="btnMenu">
                 <i class="fa fa-bars"></i>
             </button>
         </div>
         <div id="menuMobile" class="md:hidden hidden bg-accent px-4 pb-4">
             <nav class="flex flex-col gap-3">
-                <a href="#inicio" class="py-2 border-b border-white/20">Início</a>
-                <a href="#igreja" class="py-2 border-b border-white/20">Igreja</a>
-                <a href="#eventos" class="py-2 border-b border-white/20">Eventos</a>
-                <a href="#aovivo" class="py-2 border-b border-white/20">Ao Vivo</a>
-                <a href="#oracao" class="py-2 border-b border-white/20">Oração</a>
-                <a href="#doacao" class="py-2 border-b border-white/20">Doação</a>
-                <a href="#mais" class="py-2">Mais</a>
-                <div class="flex flex-col gap-2 mt-2">
-                    <a href="#membro" class="bg-secondary text-primary px-4 py-2 rounded-md font-bold text-center">Seja Membro</a>
-                    <a href="#entrar" class="border border-white px-4 py-2 rounded-md text-center">Entrar</a>
-                </div>
+                <a href="#inicio" class="py-2">Início</a>
+                <a href="#igreja" class="py-2">Igreja</a>
+                <a href="#eventos" class="py-2">Eventos</a>
+                <a href="#aovivo" class="py-2">Transmissões</a>
+                <a href="#oracao" class="py-2">Oração</a>
+                <a href="#doacao" class="py-2">Doação</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- 🎯 BANNER PRINCIPAL -->
-        <section id="inicio" class="hero-banner text-white py-20 md:py-32 flex items-center">
-            <div class="container mx-auto px-4 text-center">
-                <p class="text-lg md:text-xl mb-4 text-gray-200 italic">Família para pertencer</p>
-                <p class="inline-block bg-white/10 px-4 py-1 rounded-full text-sm mb-8">● Boas-vindas à nossa família</p>
-                <h1 class="text-5xl md:text-8xl font-bold mb-4 text-secondary tracking-wider">JESUS</h1>
-                <h2 class="text-2xl md:text-3xl mb-6 text-white font-light">Ele é o caminho, a verdade e a vida</h2>
-                <p class="text-lg md:text-xl mb-10 text-gray-200 max-w-2xl mx-auto">
-                    Uma comunidade de fé, amor e esperança. Venha crescer espiritualmente e fazer parte da nossa família.
-                </p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="#aovivo" class="bg-secondary text-primary px-8 py-3 rounded-md font-bold text-lg hover:bg-yellow-400 transition-colors flex items-center gap-2">
-                        <i class="fa fa-play"></i> Ao Vivo
-                    </a>
-                    <a href="#oracao" class="bg-white/20 hover:bg-white/30 px-8 py-3 rounded-md font-bold text-lg transition-colors flex items-center gap-2 border border-white/30">
-                        <i class="fa fa-heart"></i> Pedido de Oração
-                    </a>
-                    <a href="#membro" class="bg-white/20 hover:bg-white/30 px-8 py-3 rounded-md font-bold text-lg transition-colors flex items-center gap-2 border border-white/30">
-                        <i class="fa fa-user-plus"></i> Seja Membro
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 📅 PRÓXIMA PROGRAMAÇÃO -- COMPLETA -->
-        <section id="eventos" class="py-16 bg-white">
+        <!-- 📺 ÚLTIMAS TRANSMISSÕES + CALENDÁRIO -->
+        <section id="aovivo" class="py-16 bg-white">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-10 text-primary">Próxima Programação</h2>
-                <div class="max-w-3xl mx-auto space-y-4">
-                    <div class="border-l-4 border-secondary pl-6 py-4 bg-gray-50 rounded-r-lg">
-                        <h3 class="font-bold text-xl text-primary">Terça-feira</h3>
-                        <p class="font-semibold">Células nas casas — 20:00</p>
-                        <p class="text-gray-600">Em diversos bairros da região</p>
-                    </div>
-                    <div class="border-l-4 border-secondary pl-6 py-4 bg-gray-50 rounded-r-lg">
-                        <h3 class="font-bold text-xl text-primary">Quinta-feira</h3>
-                        <p class="font-semibold">Culto da Fé — 19:30</p>
-                        <p class="text-gray-600">Transmitido ao vivo pelo YouTube</p>
-                    </div>
-                    <div class="border-l-4 border-secondary pl-6 py-4 bg-gray-50 rounded-r-lg">
-                        <h3 class="font-bold text-xl text-primary">Sábado</h3>
-                        <p class="font-semibold">Célula de Adolescentes — 18:00</p>
-                        <p class="font-semibold">Célula de Jovens — 20:00</p>
-                    </div>
-                    <div class="border-l-4 border-secondary pl-6 py-4 bg-gray-50 rounded-r-lg">
-                        <h3 class="font-bold text-xl text-primary">Domingo</h3>
-                        <p class="font-semibold">Culto de Celebração — 19:00</p>
-                        <p class="text-gray-600">Transmitido ao vivo pelo YouTube</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <h2 class="text-3xl font-bold text-center mb-4 text-primary">Transmissões dos Cultos</h2>
+                <p class="text-center text-gray-600 mb-8">Cultos transmitidos: Quinta-feira (19:30) e Domingo (19:00)</p>
 
-        <!-- 📺 ÚLTIMAS TRANSMISSÕES (ordenadas por data) -->
-        <section id="aovivo" class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-4 text-primary">Últimas Transmissões</h2>
-                <p class="text-center text-gray-600 mb-10">Ordenadas da mais recente à mais antiga (Quinta e Domingo)</p>
+                <!-- 📅 CALENDÁRIO DE BUSCA POR DATA -->
+                <div class="max-w-2xl mx-auto mb-12 bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold text-center mb-4 text-primary">📅 Encontrar transmissão por data</h3>
+                    <p class="text-center text-gray-500 mb-4">Selecione uma data para ver a transmissão daquele dia</p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                        <input type="date" id="buscarData" 
+                               class="px-4 py-3 border-2 border-gray-300 rounded-md text-lg focus:border-secondary outline-none">
+                        <button id="btnBuscar" class="bg-primary text-white px-6 py-3 rounded-md font-bold hover:bg-accent">
+                            <i class="fa fa-search mr-2"></i> Buscar Transmissão
+                        </button>
+                    </div>
+                    <div id="resultadoBusca" class="mt-6 hidden"></div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-center mb-6 text-primary">Últimas 8 Transmissões</h3>
+                <p class="text-center text-gray-500 mb-8">Ordenadas da mais recente à mais antiga</p>
+
+                <!-- 📺 LISTA DAS ÚLTIMAS TRANSMISSÕES -->
                 <div id="lista-videos" class="grid md:grid-cols-3 gap-6">
                     <div class="col-span-full text-center py-10">
                         <i class="fa fa-spinner fa-spin text-3xl text-primary"></i>
-                        <p class="mt-2 text-gray-600">Carregando vídeos...</p>
+                        <p class="mt-2 text-gray-600">Carregando transmissões...</p>
                     </div>
                 </div>
-                <div class="text-center mt-8">
+
+                <div class="text-center mt-10">
                     <a href="https://youtube.com/@ibndiamantino/videos" target="_blank" 
-                       class="inline-block bg-primary text-white px-8 py-3 rounded-md font-bold hover:bg-accent">
+                       class="inline-block bg-secondary text-primary px-8 py-3 rounded-md font-bold hover:bg-yellow-400">
                         <i class="fa fa-youtube-play mr-2"></i> Ver TODAS as transmissões no YouTube
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- ⛪ IGREJA / QUEM SOMOS -->
-        <section id="igreja" class="py-16 bg-white">
+        <!-- 📅 PROGRAMAÇÃO SEMANAL -->
+        <section id="eventos" class="py-16 bg-gray-50">
             <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center mb-12">
-                    <h2 class="text-3xl font-bold mb-6 text-primary">Uma Igreja Batista Comprometida com o Evangelho</h2>
-                    <p class="text-lg text-gray-600 mb-4">Há mais de 50 anos, nossa igreja tem sido um farol de esperança na comunidade. Somos uma congregação batista tradicional com uma abordagem contemporânea, mantendo firmes os fundamentos da fé enquanto abraçamos as novas gerações.</p>
-                    <p class="text-lg text-gray-600">Nossa missão é glorificar a Deus, fazer discípulos de Jesus Cristo e transformar vidas através do poder do Evangelho.</p>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                    <div class="bg-gray-50 p-6 rounded-xl">
-                        <p class="text-4xl font-bold text-secondary">50+</p>
-                        <p class="text-gray-600 mt-2">Anos de História</p>
+                <h2 class="text-3xl font-bold text-center mb-10 text-primary">Programação Semanal</h2>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <div class="border-l-4 border-secondary pl-6 py-4 bg-white rounded-r-lg">
+                        <h3 class="font-bold text-xl text-primary">Terça-feira</h3>
+                        <p class="font-semibold">Células nas casas — 20:00</p>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-xl">
-                        <p class="text-4xl font-bold text-secondary">1.46k</p>
-                        <p class="text-gray-600 mt-2">Inscritos no YouTube</p>
+                    <div class="border-l-4 border-secondary pl-6 py-4 bg-white rounded-r-lg">
+                        <h3 class="font-bold text-xl text-primary">Quinta-feira</h3>
+                        <p class="font-semibold">Culto da Fé — 19:30 <span class="text-green-600 text-sm">● Ao Vivo</span></p>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-xl">
-                        <p class="text-4xl font-bold text-secondary">283</p>
-                        <p class="text-gray-600 mt-2">Vídeos Publicados</p>
+                    <div class="border-l-4 border-secondary pl-6 py-4 bg-white rounded-r-lg">
+                        <h3 class="font-bold text-xl text-primary">Sábado</h3>
+                        <p class="font-semibold">Célula de Adolescentes — 18:00</p>
+                        <p class="font-semibold mt-1">Célula de Jovens — 20:00</p>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-xl">
-                        <p class="text-4xl font-bold text-secondary">5</p>
-                        <p class="text-gray-600 mt-2">Cultos Semanais</p>
+                    <div class="border-l-4 border-secondary pl-6 py-4 bg-white rounded-r-lg">
+                        <h3 class="font-bold text-xl text-primary">Domingo</h3>
+                        <p class="font-semibold">Culto de Celebração — 19:00 <span class="text-green-600 text-sm">● Ao Vivo</span></p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 🙏 PEDIDO DE ORAÇÃO -->
-        <section id="oracao" class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
+        <section id="oracao" class="py-16 bg-white">
+            <div class="container mx-auto px-4 max-w-2xl">
                 <h2 class="text-3xl font-bold text-center mb-6 text-primary">Pedido de Oração</h2>
-                <p class="text-center text-lg italic text-gray-600 mb-8 max-w-2xl mx-auto">"Confessai as vossas culpas uns aos outros, e orai uns pelos outros, para que sareis. A oração feita por um justo pode muito em seus efeitos." — Tiago 5:16</p>
-                <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm">
-                    <form id="formOracao" class="space-y-4">
-                        <input type="text" id="nome" placeholder="Seu nome" required class="w-full p-3 border rounded-md focus:ring-2 focus:ring-secondary outline-none">
-                        <input type="email" id="email" placeholder="Seu e-mail" required class="w-full p-3 border rounded-md focus:ring-2 focus:ring-secondary outline-none">
-                        <textarea id="pedido" placeholder="Seu pedido de oração" rows="4" required class="w-full p-3 border rounded-md focus:ring-2 focus:ring-secondary outline-none"></textarea>
-                        <button type="submit" class="w-full bg-primary text-white p-3 rounded-md font-bold hover:bg-accent">Enviar Pedido</button>
-                    </form>
-                    <div id="mensagemSucesso" class="hidden mt-4 p-4 bg-green-100 text-green-800 rounded-md text-center">
-                        ✅ Pedido enviado! Nossa equipe orará por você.
-                    </div>
-                </div>
+                <p class="text-center text-lg italic text-gray-600 mb-8">"Confessai as vossas culpas uns aos outros, e orai uns pelos outros." — Tiago 5:16</p>
+                <form id="formOracao" class="space-y-4">
+                    <input type="text" placeholder="Seu nome" required class="w-full p-3 border rounded-md focus:ring-2 focus:ring-secondary outline-none">
+                    <input type="email" placeholder="Seu e-mail" required class="w-full p-3 border rounded-md focus:ring-2 focus:ring-secondary outline-none">
+                    <textarea placeholder="Seu pedido de oração" rows="4" required class="w-full p-3 border rounded-md focus:ring-2 focus:ring-secondary outline-none"></textarea>
+                    <button type="submit" class="w-full bg-primary text-white p-3 rounded-md font-bold hover:bg-accent">Enviar Pedido</button>
+                </form>
             </div>
         </section>
 
-        <!-- 💝 DOAÇÃO / PIX -->
-        <section id="doacao" class="py-16 bg-white">
+        <!-- 💝 DOAÇÃO -->
+        <section id="doacao" class="py-16 bg-gray-50">
             <div class="container mx-auto px-4 max-w-2xl text-center">
                 <h2 class="text-3xl font-bold mb-6 text-primary">Dízimos e Ofertas</h2>
-                <p class="text-lg italic text-gray-600 mb-8">"Cada um contribua segundo propôs no seu coração; não com tristeza, ou por necessidade; porque Deus ama ao que dá com alegria." — 2 Coríntios 9:7</p>
-                <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                <p class="text-lg italic text-gray-600 mb-8">"Deus ama ao que dá com alegria." — 2 Coríntios 9:7</p>
+                <div class="bg-white p-8 rounded-xl shadow-sm">
                     <h3 class="text-xl font-bold mb-4 text-primary">Chave Pix</h3>
-                    <p class="text-lg font-mono bg-white p-3 rounded border mb-4">ibndiamantino77@gmail.com</p>
+                    <p class="text-lg font-mono bg-gray-50 p-3 rounded border mb-4">ibndiamantino77@gmail.com</p>
                     <button onclick="copiarPix()" class="bg-primary text-white px-6 py-3 rounded-md font-bold hover:bg-accent">
                         <i class="fa fa-copy mr-2"></i> Copiar Chave Pix
                     </button>
-                    <p id="msgPix" class="mt-3 text-green-600 font-bold hidden">✅ Copiado com sucesso!</p>
+                    <p id="msgPix" class="mt-3 text-green-600 font-bold hidden">✅ Copiado!</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- 📍 CONTATO E LOCALIZAÇÃO -->
-        <section id="mais" class="py-16 bg-primary text-white">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold mb-6">Contato e Localização</h2>
-                <p class="text-lg mb-2"><strong>Igreja Batista Nacional Diamantino</strong></p>
-                <p class="mb-4">Av. Ministro Gilmar Ferreira Mendes, S/N — ao lado do Sicredi<br>Diamantino — MT</p>
-                <p class="mb-4"><i class="fa fa-whatsapp"></i> <a href="tel:+5565996292021" class="text-secondary font-bold">(65) 9 9629-2021</a></p>
-                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Ministro+Gilmar+Ferreira+Mendes,Diamantino-MT" target="_blank" 
-                   class="inline-block bg-secondary text-primary px-6 py-3 rounded-md font-bold hover:bg-yellow-400">
-                    <i class="fa fa-map-marker mr-2"></i> Como Chegar →
-                </a>
             </div>
         </section>
     </main>
 
-    <footer class="bg-dark text-white py-10 text-center">
+    <footer class="bg-dark text-white py-8 text-center">
         <p class="text-xl font-bold text-secondary mb-2">Igreja Batista Nacional Diamantino</p>
-        <p class="text-gray-400 mb-4">"Eu e a minha Casa serviremos ao Senhor." — Josué 24:15</p>
-        <p class="text-sm text-gray-500">© 2026 — Todos os direitos reservados</p>
+        <p class="text-sm text-gray-400">© 2026 — "Eu e a minha Casa serviremos ao Senhor." — Josué 24:15</p>
     </footer>
 
     <script>
         // ========== CONFIGURAÇÕES ==========
         const API_KEY = "AIzaSyAYZpzdj26wl8lob7ZX3VBxilRyCTpZ3x4";
-        const QTD_VIDEOS = 6;
+        const QTD_ULTIMAS = 8; // ✅ Mostra as 8 últimas transmissões
+        const cacheVideos = []; // Armazena todos os vídeos carregados
 
         // ========== MENU MOBILE ==========
         document.getElementById('btnMenu').addEventListener('click', () => {
             document.getElementById('menuMobile').classList.toggle('hidden');
         });
 
-        // ========== CARREGAR VÍDEOS DO YOUTUBE (ordenados por data) ==========
-        async function carregarVideos() {
+        // ========== BUSCAR ID DO CANAL ==========
+        async function buscarIdCanal() {
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=ibndiamantino&type=channel&key=${API_KEY}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            if (!data.items || data.items.length === 0) throw "Canal não encontrado";
+            return data.items[0].id.channelId;
+        }
+
+        // ========== CARREGAR VÍDEOS E SALVAR NO CACHE ==========
+        async function carregarVideos(quantidade = QTD_ULTIMAS) {
             const container = document.getElementById('lista-videos');
+            container.innerHTML = `<div class="col-span-full text-center py-10">
+                <i class="fa fa-spinner fa-spin text-3xl text-primary"></i>
+                <p class="mt-2 text-gray-600">Carregando transmissões...</p>
+            </div>`;
+
             try {
-                // Buscar canal pelo nome de usuário
-                const buscaUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=ibndiamantino&type=channel&key=${API_KEY}`;
-                const buscaRes = await fetch(buscaUrl);
-                const buscaData = await buscaRes.json();
+                const idCanal = await buscarIdCanal();
+                const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${idCanal}&maxResults=${quantidade}&order=date&type=video&key=${API_KEY}`;
+                const res = await fetch(url);
+                const data = await res.json();
 
-                if (!buscaData.items || buscaData.items.length === 0) throw "Canal não encontrado";
-                const idCanal = buscaData.items[0].id.channelId;
+                if (!data.items || data.items.length === 0) throw "Sem vídeos";
 
-                // Buscar vídeos ORDENADOS POR DATA (mais novo primeiro)
-                const videosUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${idCanal}&maxResults=${QTD_VIDEOS}&order=date&type=video&key=${API_KEY}`;
-                const videosRes = await fetch(videosUrl);
-                const videosData = await videosRes.json();
+                // Salvar no cache para busca por data
+                data.items.forEach(v => {
+                    cacheVideos.push({
+                        id: v.id.videoId,
+                        titulo: v.snippet.title,
+                        data: new Date(v.snippet.publishedAt),
+                        capa: v.snippet.thumbnails.medium.url,
+                        dataStr: new Date(v.snippet.publishedAt).toLocaleDateString('pt-BR')
+                    });
+                });
 
+                // Exibir na página
                 container.innerHTML = "";
-
-                if (!videosData.items || videosData.items.length === 0) {
-                    container.innerHTML = `<div class="col-span-full text-center py-6 text-gray-600">
-                        <p>Nenhum vídeo encontrado no momento.</p>
-                        <a href="https://youtube.com/@ibndiamantino/videos" target="_blank" 
-                           class="text-primary font-bold underline">Ver todos no YouTube →</a>
-                    </div>`;
-                    return;
-                }
-
-                videosData.items.forEach(video => {
-                    const titulo = video.snippet.title;
-                    const data = new Date(video.snippet.publishedAt).toLocaleDateString('pt-BR');
-                    const capa = video.snippet.thumbnails.medium.url;
-                    const idVideo = video.id.videoId;
-                    const link = `https://www.youtube.com/watch?v=${idVideo}`;
-
-                    container.innerHTML += `
-                        <a href="${link}" target="_blank" class="video-card bg-white rounded-xl shadow-md overflow-hidden block">
-                            <img src="${capa}" alt="${titulo}" class="w-full h-48 object-cover">
-                            <div class="p-4">
-                                <h3 class="font-bold text-lg text-primary line-clamp-2">${titulo}</h3>
-                                <p class="text-sm text-gray-500 mt-2"><i class="fa fa-calendar"></i> ${data}</p>
-                            </div>
-                        </a>
-                    `;
+                cacheVideos.forEach(video => {
+                    container.innerHTML += criarCardVideo(video);
                 });
 
             } catch (erro) {
-                console.error("Erro:", erro);
-                container.innerHTML = `<div class="col-span-full text-center py-6 text-gray-600">
-                    <p>⚠️ Não foi possível carregar os vídeos agora.</p>
+                console.error(erro);
+                container.innerHTML = `<div class="col-span-full text-center py-6">
+                    <p class="text-red-600">⚠️ Não foi possível carregar as transmissões.</p>
                     <a href="https://youtube.com/@ibndiamantino/videos" target="_blank" 
-                       class="text-primary font-bold underline">Clique aqui para ver todas as transmissões →</a>
+                       class="text-primary font-bold underline mt-2 inline-block">Ver no YouTube →</a>
                 </div>`;
+            }
+        }
+
+        // ========== CRIAR CARD DO VÍDEO ==========
+        function criarCardVideo(video) {
+            const link = `https://www.youtube.com/watch?v=${video.id}`;
+            return `
+                <a href="${link}" target="_blank" class="video-card bg-white rounded-xl shadow-md overflow-hidden block border border-gray-100">
+                    <img src="${video.capa}" alt="${video.titulo}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-primary line-clamp-2">${video.titulo}</h3>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <i class="fa fa-calendar"></i> ${video.dataStr}
+                        </p>
+                    </div>
+                </a>
+            `;
+        }
+
+        // ========== BUSCAR VÍDEO POR DATA ==========
+        async function buscarPorData(dataAlvo) {
+            const resultadoDiv = document.getElementById('resultadoBusca');
+            resultadoDiv.classList.remove('hidden');
+            resultadoDiv.innerHTML = `<p class="text-center text-gray-500"><i class="fa fa-spinner fa-spin"></i> Buscando transmissão...</p>`;
+
+            try {
+                // Garantir que temos vídeos carregados
+                if (cacheVideos.length === 0) {
+                    await carregarVideos(50); // Carrega os 50 mais recentes para busca
+                }
+
+                // Comparar datas (ignorando horário)
+                const dataAlvoAjustada = new Date(dataAlvo);
+                const videoEncontrado = cacheVideos.find(v => {
+                    const dataVideo = new Date(video.data);
+                    return dataVideo.toDateString() === dataAlvoAjustada.toDateString();
+                });
+
+                if (videoEncontrado) {
+                    resultadoDiv.innerHTML = `
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-bold mb-2">✅ Transmissão encontrada!</p>
+                            ${criarCardVideo(videoEncontrado)}
+                        </div>
+                    `;
+                } else {
+                    // Se não achar nos carregados, avisar e sugerir link direto
+                    const dataFormatada = new Date(dataAlvo).toLocaleDateString('pt-BR');
+                    resultadoDiv.innerHTML = `
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 text-center">
+                            <p class="text-yellow-700">⚠️ Nenhuma transmissão encontrada em ${dataFormatada}.</p>
+                            <p class="text-sm text-gray-600 mt-2">As transmissões acontecem nas datas: <strong>Quinta-feira e Domingo</strong>.</p>
+                            <a href="https://youtube.com/@ibndiamantino/videos" target="_blank" 
+                               class="text-primary font-bold underline mt-2 inline-block">Ver todas no YouTube →</a>
+                        </div>
+                    `;
+                }
+
+            } catch (erro) {
+                resultadoDiv.innerHTML = `<p class="text-red-600">Erro ao buscar. Tente diretamente no YouTube.</p>`;
             }
         }
 
@@ -327,20 +325,17 @@
             setTimeout(() => document.getElementById('msgPix').classList.add('hidden'), 3000);
         }
 
-        // ========== FORMULÁRIO DE ORAÇÃO ==========
-        document.getElementById('formOracao').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const pedido = document.getElementById('pedido').value;
-            window.location.href = `mailto:ibndiamantino77@gmail.com?subject=Pedido de Oração - ${nome}&body=Nome: ${nome}%0DE-mail: ${email}%0D%0DPedido:%0D${pedido}`;
-            document.getElementById('mensagemSucesso').classList.remove('hidden');
-            document.getElementById('formOracao').reset();
-            setTimeout(() => document.getElementById('mensagemSucesso').classList.add('hidden'), 8000);
-        });
+        // ========== INICIALIZAR ==========
+        window.onload = () => {
+            carregarVideos(QTD_ULTIMAS);
 
-        // INICIAR TUDO
-        window.onload = carregarVideos;
+            // Botão buscar por data
+            document.getElementById('btnBuscar').addEventListener('click', () => {
+                const data = document.getElementById('buscarData').value;
+                if (data) buscarPorData(data);
+                else alert('Selecione uma data primeiro!');
+            });
+        };
     </script>
 </body>
 </html>
