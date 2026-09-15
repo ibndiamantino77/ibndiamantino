@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A1A3F">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="IBN Diamantino">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiSUJOIERpYW1hbnRpbm8iLCJzaG9ydF9uYW1lIjoiSUJOIiwiZGVzY3JpcHRpb24iOiJJZ3JlamEgQmF0aXN0YSBOYWNpb25hbCBEaWFtYW50aW5vIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwQTFBM0YiLCJ0aGVtZV9jb2xvciI6IiMwQTFBM0YiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sLDxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTkyIDE5MSc+PHRleHQgeD0nNTUnIHk9JzU1JyBmb250LXNpemU9JzEwMCcgZmlsbD0nI0Q0QUYzNScgZmlsbC1vcGFjaXR5PScxJz5JQk48L3RleHQ+PC9zdmc+Iiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
     <title>Igreja Batista Nacional Diamantino</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -24,80 +29,166 @@
     <style>
         html { scroll-behavior: smooth; }
         .video-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
-        .header-banner {
-            background: url('banner-ibn.jpg');
+        
+        /* 🖼️ BANNER PRINCIPAL igual ao site oficial */
+        .hero-banner {
+            background: linear-gradient(rgba(10, 26, 63, 0.75), rgba(10, 26, 63, 0.65)), 
+                        url('banner-principal.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            height: 160px;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
         }
+
+        /* 📱 AVISO DE INSTALAÇÃO */
+        .install-banner {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            max-width: 320px;
+            background: #fff9e6;
+            border: 1px solid #ffd900;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 99;
+            display: none;
+        }
+
+        /* 📻 RÁDIO IBN — barra inferior */
+        .radio-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #0A1A3F;
+            color: white;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 98;
+        }
+
         @media (max-width: 768px) {
-            .header-banner { height: 120px; }
+            .hero-banner { min-height: 70vh; }
         }
     </style>
 </head>
 <body class="bg-light text-gray-800 font-sans antialiased">
 
-    <!-- 🖼️ CABEÇALHO COM IMAGEM -->
-    <div class="header-banner w-full"></div>
+    <!-- 📱 AVISO: INSTALAR APP -->
+    <div id="installBanner" class="install-banner p-4">
+        <div class="flex items-start gap-3">
+            <div class="flex-1">
+                <p class="font-bold text-primary mb-1">Instalar App IBN</p>
+                <p class="text-sm text-gray-600 mb-3">Acesse mais rápido, mesmo offline</p>
+                <button id="btnInstalar" class="bg-secondary text-primary px-4 py-2 rounded-md font-bold w-full hover:bg-yellow-400">
+                    <i class="fa fa-download mr-2"></i> Instalar Agora
+                </button>
+            </div>
+            <button id="btnFecharAviso" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+        </div>
+    </div>
 
-    <!-- 🧭 MENU DE NAVEGAÇÃO -->
+    <!-- 🧭 MENU DE NAVEGAÇÃO — IGUAL AO SITE OFICIAL -->
     <header class="bg-primary/95 text-white sticky top-0 z-50 shadow-md backdrop-blur-sm">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Logo -->
             <a href="#inicio" class="flex items-center gap-2">
                 <span class="text-2xl font-bold text-secondary">IBN</span>
                 <span class="hidden sm:inline text-sm">Família para pertencer</span>
             </a>
-            <nav class="hidden md:flex items-center gap-6">
-                <a href="#inicio" class="border-b-2 border-secondary pb-1">Início</a>
-                <a href="#igreja" class="hover:text-secondary">Igreja</a>
-                <a href="#eventos" class="hover:text-secondary">Eventos</a>
-                <a href="#transmissoes" class="hover:text-secondary flex items-center gap-1 font-bold text-secondary">
-                    <i class="fa fa-play-circle text-sm"></i> Transmissões
+
+            <!-- Menu Desktop -->
+            <nav class="hidden md:flex items-center gap-6 text-sm">
+                <a href="#inicio" class="border-b-2 border-secondary pb-1 font-bold">Início</a>
+                <a href="#igreja" class="hover:text-secondary transition-colors">Igreja</a>
+                <a href="#eventos" class="hover:text-secondary transition-colors">Eventos</a>
+                <a href="#transmissoes" class="hover:text-secondary transition-colors flex items-center gap-1">
+                    <i class="fa fa-play-circle text-xs"></i> Ao Vivo
                 </a>
-                <a href="#oracao" class="hover:text-secondary flex items-center gap-1">
-                    <i class="fa fa-heart text-sm"></i> Oração
+                <a href="#oracao" class="hover:text-secondary transition-colors flex items-center gap-1">
+                    <i class="fa fa-heart text-xs"></i> Oração
                 </a>
-                <a href="#doacao" class="hover:text-secondary">Doação</a>
+                <a href="#doacao" class="hover:text-secondary transition-colors">Doação</a>
+                <a href="#mais" class="hover:text-secondary transition-colors">Mais</a>
             </nav>
+
+            <!-- Botões Seja Membro / Entrar -->
+            <div class="hidden md:flex items-center gap-3">
+                <a href="#membro" class="bg-secondary text-primary px-4 py-2 rounded-md font-bold text-sm hover:bg-yellow-400 transition-colors">
+                    <i class="fa fa-whatsapp mr-1"></i> Seja Membro
+                </a>
+                <a href="#entrar" class="border border-white/40 px-4 py-2 rounded-md text-sm hover:bg-white/10 transition-colors">Entrar</a>
+            </div>
+
+            <!-- Botão Menu Mobile -->
             <button class="md:hidden text-2xl" id="btnMenu">
                 <i class="fa fa-bars"></i>
             </button>
         </div>
+
+        <!-- Menu Mobile -->
         <div id="menuMobile" class="md:hidden hidden bg-accent px-4 pb-4">
             <nav class="flex flex-col gap-3">
-                <a href="#inicio" class="py-2">Início</a>
-                <a href="#igreja" class="py-2">Igreja</a>
-                <a href="#eventos" class="py-2">Eventos</a>
-                <a href="#transmissoes" class="py-2 font-bold text-secondary">Transmissões</a>
-                <a href="#oracao" class="py-2">Oração</a>
-                <a href="#doacao" class="py-2">Doação</a>
+                <a href="#inicio" class="py-2 border-b border-white/20">Início</a>
+                <a href="#igreja" class="py-2 border-b border-white/20">Igreja</a>
+                <a href="#eventos" class="py-2 border-b border-white/20">Eventos</a>
+                <a href="#transmissoes" class="py-2 border-b border-white/20">Ao Vivo</a>
+                <a href="#oracao" class="py-2 border-b border-white/20">Oração</a>
+                <a href="#doacao" class="py-2 border-b border-white/20">Doação</a>
+                <a href="#mais" class="py-2">Mais</a>
+                <div class="flex flex-col gap-2 mt-3">
+                    <a href="#membro" class="bg-secondary text-primary px-4 py-2 rounded-md font-bold text-center">Seja Membro</a>
+                    <a href="#entrar" class="border border-white px-4 py-2 rounded-md text-center">Entrar</a>
+                </div>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- 📺 TRANSMISSÕES COM CALENDÁRIO DE BUSCA -->
+        <!-- 🎯 BANNER PRINCIPAL — IGUAL AO SITE OFICIAL -->
+        <section id="inicio" class="hero-banner text-white py-20">
+            <div class="container mx-auto px-4 text-center">
+                <p class="inline-block bg-white/10 px-4 py-1 rounded-full text-sm mb-8">● Boas-vindas à nossa família</p>
+                <h1 class="text-6xl md:text-8xl font-bold mb-4 text-secondary tracking-wider">JESUS</h1>
+                <h2 class="text-2xl md:text-3xl mb-6 font-light">Ele é o caminho, a verdade e a vida</h2>
+                <p class="text-lg md:text-xl mb-10 text-gray-200 max-w-2xl mx-auto">
+                    Uma comunidade de fé, amor e esperança. Venha crescer espiritualmente e fazer parte da nossa família.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#transmissoes" class="bg-secondary text-primary px-8 py-3 rounded-md font-bold text-lg hover:bg-yellow-400 transition-colors">
+                        <i class="fa fa-play mr-2"></i> Assistir Culto Ao Vivo
+                    </a>
+                    <a href="#oracao" class="bg-white/20 hover:bg-white/30 px-8 py-3 rounded-md font-bold text-lg transition-colors border border-white/30">
+                        <i class="fa fa-heart mr-2"></i> Pedido de Oração
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 📺 TRANSMISSÕES AO VIVO + CALENDÁRIO DE BUSCA -->
         <section id="transmissoes" class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center mb-4 text-primary">Transmissões dos Cultos</h2>
-                <p class="text-center text-gray-600 mb-8">Cultos transmitidos: Quinta-feira (19:30) e Domingo (19:00)</p>
+                <p class="text-center text-gray-600 mb-8">Quinta-feira às 19:30 e Domingo às 19:00</p>
 
                 <!-- 📅 BUSCA POR DATA -->
                 <div class="max-w-2xl mx-auto mb-12 bg-gray-50 p-6 rounded-xl shadow-sm border-2 border-secondary/30">
-                    <h3 class="text-xl font-bold text-center mb-4 text-primary">📅 Encontrar transmissão por qualquer data</h3>
-                    <p class="text-center text-gray-500 mb-4">Selecione uma data — pode ser de hoje até o PRIMEIRO vídeo do canal</p>
+                    <h3 class="text-xl font-bold text-center mb-4 text-primary">📅 Encontrar transmissão por data</h3>
+                    <p class="text-center text-gray-500 mb-4">Selecione qualquer data — desde os primeiros vídeos do canal</p>
                     <div class="flex flex-col sm:flex-row gap-3 justify-center">
                         <input type="date" id="buscarData" 
                                class="px-4 py-3 border-2 border-gray-300 rounded-md text-lg focus:border-secondary outline-none">
                         <button id="btnBuscar" class="bg-primary text-white px-6 py-3 rounded-md font-bold hover:bg-accent whitespace-nowrap">
-                            <i class="fa fa-search mr-2"></i> Buscar Transmissão
+                            <i class="fa fa-search mr-2"></i> Buscar
                         </button>
                     </div>
                     <div id="resultadoBusca" class="mt-6 hidden"></div>
                 </div>
 
-                <h3 class="text-2xl font-bold text-center mb-6 text-primary">⚡ Últimas 8 Transmissões</h3>
+                <h3 class="text-2xl font-bold text-center mb-6 text-primary">⚡ Últimas Transmissões</h3>
                 <p class="text-center text-gray-500 mb-8">Ordenadas da mais recente à mais antiga</p>
 
                 <!-- 📺 LISTA DE VÍDEOS -->
@@ -121,7 +212,7 @@
             </div>
         </section>
 
-        <!-- 📅 PROGRAMAÇÃO -->
+        <!-- 📅 PROGRAMAÇÃO SEMANAL -->
         <section id="eventos" class="py-16 bg-gray-50">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center mb-10 text-primary">Programação Semanal</h2>
@@ -176,22 +267,74 @@
                 </div>
             </div>
         </section>
+
+        <!-- 📍 CONTATO E LOCALIZAÇÃO -->
+        <section id="mais" class="py-16 bg-primary text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-6">Contato e Localização</h2>
+                <p class="text-lg mb-2"><strong>Igreja Batista Nacional Diamantino</strong></p>
+                <p class="mb-4">Av. Ministro Gilmar Ferreira Mendes, S/N — ao lado do Sicredi<br>Diamantino — MT</p>
+                <p class="mb-4"><i class="fa fa-whatsapp"></i> <a href="tel:+5565996292021" class="text-secondary font-bold">(65) 9 9629-2021</a></p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Ministro+Gilmar+Ferreira+Mendes,Diamantino-MT" target="_blank" 
+                   class="inline-block bg-secondary text-primary px-6 py-3 rounded-md font-bold hover:bg-yellow-400">
+                    <i class="fa fa-map-marker mr-2"></i> Como Chegar →
+                </a>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-dark text-white py-8 text-center">
+    <footer class="bg-dark text-white py-8 text-center mb-10">
         <p class="text-xl font-bold text-secondary mb-2">Igreja Batista Nacional Diamantino</p>
         <p class="text-sm text-gray-400">© 2026 — "Eu e a minha Casa serviremos ao Senhor." — Josué 24:15</p>
     </footer>
 
+    <!-- 📻 BARRA INFERIOR: RÁDIO IBN -->
+    <div class="radio-bar">
+        <button class="text-xl" title="Reproduzir">
+            <i class="fa fa-play-circle"></i>
+        </button>
+        <span class="font-semibold">Rádio IBN</span>
+        <span class="text-xs text-gray-300 ml-auto">Ao vivo</span>
+    </div>
+
     <script>
         // ========== CONFIGURAÇÕES ==========
         const API_KEY = "AIzaSyAYZpzdj26wl8lob7ZX3VBxilRyCTpZ3x4";
-        const QTD_INICIAL = 8;     // ✅ Mostra as 8 primeiras
-        const QTD_POR_CARGA = 30;  // ✅ Carrega 30 por vez ao buscar antigas
+        const QTD_INICIAL = 8;
+        const QTD_POR_CARGA = 30;
         let canalId = "";
         let proximaPagina = "";
-        let todosOsVideos = [];     // ✅ Armazena TODOS os vídeos carregados
+        let todosOsVideos = [];
         let carregando = false;
+        let promptInstalacao = null;
+
+        // ========== 📱 INSTALAR APP (PWA) ==========
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            promptInstalacao = e;
+            // Mostrar aviso de instalação
+            setTimeout(() => {
+                document.getElementById('installBanner').style.display = 'block';
+            }, 3000);
+        });
+
+        document.getElementById('btnFecharAviso').addEventListener('click', () => {
+            document.getElementById('installBanner').style.display = 'none';
+        });
+
+        document.getElementById('btnInstalar').addEventListener('click', async () => {
+            if (!promptInstalacao) {
+                alert('Para instalar:\n\n📱 No Android: toque nos 3 pontinhos → "Instalar aplicativo"\n📱 No iPhone: toque em "Compartilhar" → "Adicionar à Tela de Início"');
+                return;
+            }
+            document.getElementById('btnInstalar').innerHTML = '<i class="fa fa-spinner fa-spin"></i> Instalando...';
+            const resultado = await promptInstalacao.prompt();
+            if (resultado.outcome === 'accepted') {
+                alert('✅ App IBN instalado com sucesso!');
+            }
+            document.getElementById('installBanner').style.display = 'none';
+            promptInstalacao = null;
+        });
 
         // ========== MENU MOBILE ==========
         document.getElementById('btnMenu').addEventListener('click', () => {
@@ -200,19 +343,16 @@
 
         // ========== CORRIGIR DATA DO TÍTULO ==========
         function extrairDataDoTitulo(titulo, dataPublicacao) {
-            // Tenta achar data no formato dd/mm/aaaa ou dd/mm/aa dentro do título
             const match = titulo.match(/(\d{1,2})[\/\.](\d{1,2})[\/\.](\d{2,4})/);
             if (match) {
                 let dia = parseInt(match[1]);
                 let mes = parseInt(match[2]) - 1;
                 let ano = match[3].length === 2 ? 2000 + parseInt(match[3]) : parseInt(match[3]);
                 const dataExtraida = new Date(ano, mes, dia);
-                // Valida se é uma data razoável
                 if (!isNaN(dataExtraida.getTime()) && dataExtraida.getFullYear() >= 2010) {
                     return dataExtraida;
                 }
             }
-            // Se não achar no título → usa a data de publicação
             return new Date(dataPublicacao);
         }
 
@@ -255,7 +395,6 @@
 
                 const res = await fetch(url);
                 const dados = await res.json();
-
                 proximaPagina = dados.nextPageToken || "";
 
                 if (!dados.items || dados.items.length === 0) {
@@ -269,7 +408,6 @@
                     return;
                 }
 
-                // Processar vídeos e corrigir datas pelo título
                 const novosVideos = dados.items.map(v => {
                     const pubDate = new Date(v.snippet.publishedAt);
                     const realDate = extrairDataDoTitulo(v.snippet.title, pubDate);
@@ -284,18 +422,14 @@
                 });
 
                 todosOsVideos.push(...novosVideos);
-
-                // Reordenar por DATA REAL do culto (mais novo primeiro)
                 todosOsVideos.sort((a, b) => b.dataReal - a.dataReal);
 
-                // Exibir
                 container.innerHTML = "";
                 const exibir = continuar ? todosOsVideos : todosOsVideos.slice(0, QTD_INICIAL);
                 exibir.forEach(v => {
                     container.innerHTML += criarCard(v);
                 });
 
-                // Mostrar botão "Carregar Mais" se houver mais
                 if (proximaPagina) {
                     btnMais.classList.remove('hidden');
                     btnMais.innerHTML = `<i class="fa fa-history mr-2"></i> Carregar Transmissões Mais Antigas`;
@@ -308,7 +442,7 @@
                 console.error("Erro:", erro);
                 if (!continuar) {
                     container.innerHTML = `<div class="col-span-full text-center py-6">
-                        <p class="text-red-600">⚠️ Erro ao carregar. Clique abaixo para ver no YouTube.</p>
+                        <p class="text-red-600">⚠️ Erro ao carregar. Veja no YouTube.</p>
                         <a href="https://youtube.com/@ibndiamantino/videos" target="_blank" 
                            class="text-primary font-bold underline mt-2 inline-block">Ver TODO o histórico →</a>
                     </div>`;
@@ -344,13 +478,11 @@
             const alvo = new Date(dataEscolhida + 'T00:00:00');
             const resDiv = document.getElementById('resultadoBusca');
             resDiv.classList.remove('hidden');
-            resDiv.innerHTML = `<p class="text-center text-gray-500"><i class="fa fa-spinner fa-spin"></i> Buscando transmissão...</p>`;
+            resDiv.innerHTML = `<p class="text-center text-gray-500"><i class="fa fa-spinner fa-spin"></i> Buscando...</p>`;
 
             try {
-                // Garantir que temos vídeos carregados
                 if (todosOsVideos.length === 0) await carregarVideos(true);
 
-                // Comparar datas
                 const encontrados = todosOsVideos.filter(v =>
                     v.dataReal.toDateString() === alvo.toDateString()
                 );
@@ -358,7 +490,7 @@
                 if (encontrados.length > 0) {
                     resDiv.innerHTML = `
                         <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-                            <p class="text-green-700 font-bold mb-3">✅ ${encontrados.length} transmissão(ões) encontrada(s) em ${alvo.toLocaleDateString('pt-BR')}:</p>
+                            <p class="text-green-700 font-bold mb-3">✅ ${encontrados.length} transmissão(ões) em ${alvo.toLocaleDateString('pt-BR')}:</p>
                             <div class="grid md:grid-cols-2 gap-4">
                                 ${encontrados.map(v => criarCard(v)).join('')}
                             </div>
@@ -367,21 +499,21 @@
                 } else {
                     const diaSemana = alvo.getDay();
                     const nomeDia = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'][diaSemana];
-                    const temCulto = (diaSemana === 4 || diaSemana === 0); // Quinta=4, Domingo=0
+                    const temCulto = (diaSemana === 4 || diaSemana === 0);
                     resDiv.innerHTML = `
                         <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 text-center">
-                            <p class="text-yellow-700 font-bold">Nenhuma transmissão encontrada em ${alvo.toLocaleDateString('pt-BR')} (${nomeDia}).</p>
+                            <p class="text-yellow-700 font-bold">Nenhuma transmissão em ${alvo.toLocaleDateString('pt-BR')} (${nomeDia}).</p>
                             ${temCulto 
-                                ? `<p class="text-sm text-gray-600 mt-2">Era dia de culto, mas o vídeo ainda não foi publicado ou não consta no canal.</p>` 
-                                : `<p class="text-sm text-gray-600 mt-2">Não há transmissão neste dia. Os cultos transmitidos são: <strong>Quinta e Domingo</strong>.</p>`
+                                ? `<p class="text-sm text-gray-600 mt-2">Era dia de culto, mas o vídeo ainda não foi publicado.</p>` 
+                                : `<p class="text-sm text-gray-600 mt-2">Os cultos transmitidos são: <strong>Quinta e Domingo</strong>.</p>`
                             }
                             <a href="https://youtube.com/@ibndiamantino/videos" target="_blank" 
-                               class="text-primary font-bold underline mt-3 inline-block">Ver TODO o histórico no YouTube →</a>
+                               class="text-primary font-bold underline mt-3 inline-block">Ver TODO o histórico →</a>
                         </div>
                     `;
                 }
             } catch (e) {
-                resDiv.innerHTML = `<p class="text-red-600">Erro na busca. Veja diretamente no YouTube.</p>`;
+                resDiv.innerHTML = `<p class="text-red-600">Erro. Veja no YouTube.</p>`;
             }
         });
 
